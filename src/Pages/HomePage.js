@@ -1,5 +1,6 @@
 import React from 'react';
+import { MainPageLayout } from '../myComponents/MainPageLayout';
 
 export const HomePage = () => {
-    return <div>Welcome to HomePage</div>;
+    return <MainPageLayout>Welcome to HomePage</MainPageLayout>;
 };
