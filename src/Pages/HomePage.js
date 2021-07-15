@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MainPageLayout } from '../myComponents/MainPageLayout';
+import { apiGet } from '../misc/config';
 
 export const HomePage = () => {
     const [input, setInput] = useState('');
@@ -9,14 +10,24 @@ export const HomePage = () => {
     };
 
     const onSearch = () => {
-        // https://api.tvmaze.com/search/shows?q=aliens
-        fetch(`https://api.tvmaze.com/search/shows?q=${input}`)
-            .then(r => r.json())
-            .then(result => {
-                setResults(result);
-                console.log(result);
-            });
+        apiGet(`/search/shows?q=${input}`).then(result => {
+            setResults(result);
+            console.log(result);
+        });
     };
+
+    // ***search URL***
+    //     https://api.tvmaze.com/search/shows?q=aliens
+
+    // ***ENCAPSULATED THE FETCH LOGIC IN A CUSTOM FUNCTION***
+
+    //     fetch(`https://api.tvmaze.com/search/shows?q=${input}`)
+    //         .then(r => r.json())
+    //         .then(result => {
+    //             setResults(result);
+    //             console.log(result);
+    //         });
+    // };
 
     const onKeyDown = ev => {
         if (ev.keyCode === 13) {
