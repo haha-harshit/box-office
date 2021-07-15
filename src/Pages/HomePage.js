@@ -3,7 +3,7 @@ import { MainPageLayout } from '../myComponents/MainPageLayout';
 
 export const HomePage = () => {
     const [input, setInput] = useState('');
-
+    const [result, setResults] = useState(null);
     const onInputChange = ev => {
         setInput(ev.target.value);
     };
@@ -13,6 +13,7 @@ export const HomePage = () => {
         fetch(`https://api.tvmaze.com/search/shows?q=${input}`)
             .then(r => r.json())
             .then(result => {
+                setResults(result);
                 console.log(result);
             });
     };
@@ -21,6 +22,24 @@ export const HomePage = () => {
         if (ev.keyCode === 13) {
             onSearch();
         }
+    };
+
+    const renderResults = () => {
+        if (result && result.length === 0) {
+            return <div>No Desired Result Found!</div>;
+        }
+
+        if (result && result.length > 0) {
+            return (
+                <div>
+                    {result.map(item => (
+                        <div key={item.show.id}>{item.show.name}</div>
+                    ))}
+                </div>
+            );
+        }
+
+        return null;
     };
 
     return (
@@ -34,6 +53,7 @@ export const HomePage = () => {
             <button type="button" onClick={onSearch}>
                 Search
             </button>
+            {renderResults()}
         </MainPageLayout>
     );
 };
