@@ -5,6 +5,10 @@ import { apiGet } from '../misc/config';
 export const HomePage = () => {
     const [input, setInput] = useState('');
     const [result, setResults] = useState(null);
+    const [searchOption, setSearchOption] = useState('shows');
+
+    const isShowsSearch = searchOption === 'shows';
+
     const onInputChange = ev => {
         setInput(ev.target.value);
     };
@@ -35,6 +39,11 @@ export const HomePage = () => {
         }
     };
 
+    const onRadioChange = ev => {
+        setSearchOption(ev.target.value);
+    };
+    console.log(searchOption);
+
     const renderResults = () => {
         if (result && result.length === 0) {
             return <div>No Desired Result Found!</div>;
@@ -57,10 +66,38 @@ export const HomePage = () => {
         <MainPageLayout>
             <input
                 type="text"
+                placeholder="Search Something"
                 onChange={onInputChange}
                 onKeyDown={onKeyDown}
                 value={input}
             />
+
+            <div>
+                <label htmlFor="shows-search">
+                    Shows
+                    <input
+                        type="radio"
+                        name=""
+                        id="shows-search"
+                        value="shows"
+                        checked={isShowsSearch}
+                        onChange={onRadioChange}
+                    />
+                </label>
+
+                <label htmlFor="actors-search">
+                    Actors
+                    <input
+                        type="radio"
+                        name=""
+                        id="actors-search"
+                        value="people"
+                        checked={!isShowsSearch}
+                        onChange={onRadioChange}
+                    />
+                </label>
+            </div>
+
             <button type="button" onClick={onSearch}>
                 Search
             </button>
