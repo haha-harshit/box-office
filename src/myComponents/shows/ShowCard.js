@@ -13,8 +13,8 @@ export const ShowCard = ({ id, image, name, summary }) => {
 
     return (
         <SearchCard>
-            <div>
-                <img src={image} alt="show-image" />
+            <div className="img-wrapper">
+                <img src={image} alt="showImage" />
             </div>
 
             <h1>{name}</h1>
