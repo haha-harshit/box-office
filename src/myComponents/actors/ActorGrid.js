@@ -1,9 +1,9 @@
 import React from 'react';
 import { ActorCard } from './ActorCard';
-
+import { FlexGrid } from '../styled';
 export const ActorGrid = ({ data }) => {
     return (
-        <div>
+        <FlexGrid>
             {data.map(({ person }) => (
                 <ActorCard
                     key={person.id}
@@ -17,6 +17,6 @@ export const ActorGrid = ({ data }) => {
                     }
                 />
             ))}
-        </div>
+        </FlexGrid>
     );
 };
