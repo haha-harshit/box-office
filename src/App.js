@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import { HomePage } from './Pages/HomePage';
 import { Starred } from './Pages/Starred';
 import { NotFound } from './Pages/NotFound';
+import { Show } from './Pages/Show';
 
 function App() {
     return (
@@ -16,6 +17,10 @@ function App() {
 
             <Route exact path="/starred">
                 <Starred />
+            </Route>
+
+            <Route exact path="/show/:id">
+                <Show />
             </Route>
 
             {/* page not found */}
