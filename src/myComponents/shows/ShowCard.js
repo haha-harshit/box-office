@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { SearchCard } from '../styled';
+import { StyledShowCard } from './ShowCard.styled';
 
 export const ShowCard = ({ id, image, name, summary }) => {
     const summaryAsText = summary
@@ -12,17 +12,17 @@ export const ShowCard = ({ id, image, name, summary }) => {
         : 'No Description';
 
     return (
-        <SearchCard>
+        <StyledShowCard>
             <div className="img-wrapper">
                 <img src={image} alt="showImage" />
             </div>
 
             <h1>{name}</h1>
             <p>{summaryAsText}</p>
-            <div>
+            <div className="btns">
                 <Link to={`/show/${id}`}>Read More</Link>
                 <button type="button">Star Me</button>
             </div>
-        </SearchCard>
+        </StyledShowCard>
     );
 };
