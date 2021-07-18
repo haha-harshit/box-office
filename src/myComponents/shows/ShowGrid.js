@@ -1,9 +1,9 @@
 import React from 'react';
 import { ShowCard } from './ShowCard';
-
+import { FlexGrid } from '../styled';
 export const ShowGrid = ({ data }) => {
     return (
-        <div>
+        <FlexGrid>
             {data.map(({ show }) => (
                 <ShowCard
                     key={show.id}
@@ -13,6 +13,6 @@ export const ShowGrid = ({ data }) => {
                     summary={show.summary}
                 />
             ))}
-        </div>
+        </FlexGrid>
     );
 };
