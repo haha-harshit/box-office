@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { apiGet } from '../misc/config';
 
 export const Show = () => {
-    const params = useParams();
-    console.log('params', params);
+    const { id } = useParams();
+    const [show, setShow] = useState(null);
+
+    useEffect(() => {
+        apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`).then(result => {
+            setShow(result);
+        });
+    }, [id]);
+
+    console.log('show', show);
 
     return <div>This is Show Page</div>;
 };

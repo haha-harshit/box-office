@@ -45,7 +45,7 @@ export const HomePage = () => {
     const onRadioChange = ev => {
         setSearchOption(ev.target.value);
     };
-    console.log(searchOption);
+    // console.log(searchOption);
 
     const renderResults = () => {
         if (result && result.length === 0) {
