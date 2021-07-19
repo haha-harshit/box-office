@@ -10,17 +10,24 @@ export const Show = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        let isMounted = true;
+
         apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`)
             .then(result => {
-                setTimeout(() => {
+                if (isMounted) {
                     setShow(result);
                     setIsLoading(false);
-                }, 500);
+                }
             })
             .catch(err => {
-                setError(err.message);
-                setIsLoading(false);
+                if (isMounted) {
+                    setError(err.message);
+                    setIsLoading(false);
+                }
             });
+        return () => {
+            isMounted = false;
+        };
     }, [id]);
 
     console.log('show', show);
