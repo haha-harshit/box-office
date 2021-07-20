@@ -12,5 +12,3 @@ export const Details = ({ status, premiered, network }) => {
         </div>
     );
 };
-
-export default Details;
