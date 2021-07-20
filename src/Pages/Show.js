@@ -1,6 +1,10 @@
 import React, { useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import { apiGet } from '../misc/config';
+import { Cast } from '../myComponents/shows/Cast';
+import { Details } from '../myComponents/shows/Details';
+import { Seasons } from '../myComponents/shows/Seasons';
+import { ShowMainData } from '../myComponents/shows/ShowMainData';
 
 const reducer = (prevState, action) => {
     switch (action.type) {
@@ -67,5 +71,37 @@ export const Show = () => {
         return <div>Error occured: {error}</div>;
     }
 
-    return <div>This is Show Page</div>;
+    return (
+        <div>
+            <ShowMainData
+                image={show.image}
+                name={show.name}
+                rating={show.rating}
+                summary={show.summary}
+                tags={show.genres}
+            />
+
+            {/* SHOW_DETAILS */}
+            <div>
+                <h2>DETAILS</h2>
+                <Details
+                    status={show.status}
+                    network={show.network}
+                    premiered={show.premiered}
+                />
+            </div>
+
+            {/* SEASONS */}
+            <div>
+                <h2>SEASONS</h2>
+                <Seasons seasons={show._embedded.seasons} />
+            </div>
+
+            {/* CAST */}
+            <div>
+                <h2>CAST</h2>
+                <Cast cast={show._embedded.cast} />
+            </div>
+        </div>
+    );
 };
