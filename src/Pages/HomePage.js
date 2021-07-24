@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { MainPageLayout } from '../myComponents/MainPageLayout';
 import { apiGet } from '../misc/config';
 // import { ShowCard } from '../myComponents/shows/ShowCard';
@@ -10,7 +10,23 @@ import {
     SearchButtonWrapper,
     SearchInput,
 } from './Home.styled';
-import { CustomRadio } from '../myComponents/CustomRadio';
+import { CustomRadio, MemoizedCustomRadio } from '../myComponents/CustomRadio';
+
+const renderResults = result => {
+    if (result && result.length === 0) {
+        return <div>No Desired Result Found!</div>;
+    }
+
+    if (result && result.length > 0) {
+        return result[0].show ? (
+            <ShowGrid data={result} />
+        ) : (
+            <ActorGrid data={result} />
+        );
+    }
+
+    return null;
+};
 
 export const HomePage = () => {
     const [input, setInput] = useLastQuery();
@@ -19,16 +35,19 @@ export const HomePage = () => {
 
     const isShowsSearch = searchOption === 'shows';
 
-    const onInputChange = ev => {
-        setInput(ev.target.value);
-    };
-
     const onSearch = () => {
         apiGet(`/search/${searchOption}?q=${input}`).then(result => {
             setResults(result);
             console.log(result);
         });
     };
+
+    const onInputChange = useCallback(
+        ev => {
+            setInput(ev.target.value);
+        },
+        [setInput]
+    );
 
     // ***search URL***
     //     https://api.tvmaze.com/search/shows?q=aliens
@@ -49,26 +68,12 @@ export const HomePage = () => {
         }
     };
 
-    const onRadioChange = ev => {
+    const onRadioChange = useCallback(ev => {
         setSearchOption(ev.target.value);
-    };
+    }, []);
     // console.log(searchOption);
 
-    const renderResults = () => {
-        if (result && result.length === 0) {
-            return <div>No Desired Result Found!</div>;
-        }
-
-        if (result && result.length > 0) {
-            return result[0].show ? (
-                <ShowGrid data={result} />
-            ) : (
-                <ActorGrid data={result} />
-            );
-        }
-
-        return null;
-    };
+    // useWhyDidYouUpdate('home', { onInputChange, onKeyDown });
 
     return (
         <MainPageLayout>
@@ -82,7 +87,7 @@ export const HomePage = () => {
 
             <RadioInputsWrapper>
                 <div>
-                    <CustomRadio
+                    <MemoizedCustomRadio
                         label="Shows"
                         id="shows-search"
                         value="shows"
@@ -92,7 +97,7 @@ export const HomePage = () => {
                 </div>
 
                 <div>
-                    <CustomRadio
+                    <MemoizedCustomRadio
                         label="Actors"
                         id="actors-search"
                         value="people"
@@ -107,7 +112,7 @@ export const HomePage = () => {
                     Search
                 </button>
             </SearchButtonWrapper>
-            {renderResults()}
+            {renderResults(result)}
         </MainPageLayout>
     );
 };

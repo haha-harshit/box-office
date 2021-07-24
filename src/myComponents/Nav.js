@@ -17,7 +17,6 @@ const LINKS = [
 
 export const Nav = () => {
     const location = useLocation();
-    console.log('location', location);
 
     return (
         <div>
@@ -39,3 +38,5 @@ export const Nav = () => {
         </div>
     );
 };
+
+export const MemoizedNav = React.memo(Nav);

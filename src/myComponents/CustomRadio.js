@@ -63,3 +63,5 @@ export const CustomRadio = ({ label, ...restProps }) => {
         </RadioWrapper>
     );
 };
+
+export const MemoizedCustomRadio = React.memo(CustomRadio);

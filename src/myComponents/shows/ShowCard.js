@@ -11,6 +11,7 @@ export const ShowCard = ({
     onStarClick,
     isStarred,
 }) => {
+    console.log('render');
     const summaryAsText = summary
         ? `${summary
               .split(' ')
@@ -36,3 +37,5 @@ export const ShowCard = ({
         </StyledShowCard>
     );
 };
+
+export const MemoizedShowCard = React.memo(ShowCard);
